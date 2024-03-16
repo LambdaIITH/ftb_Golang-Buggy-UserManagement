@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: User Management API
+  contact: {
+      name: "Lambda Support",
+      email: "lambda@elan.org.in"
+  }
+  version: 1.0.0
+  description: API for managing users, including authentication and creation.
+
+servers:
+  - url: http://localhost:8000
+
+paths:
+  /login:
+    post:
+      summary: Authenticate a user
+      description: Returns JWT signed cookie.
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Successful login
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: authtoken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGVsYW4ub3JnLmluIiwiZXhwIjoxNzEwNjAxNzQ4fQ.mPTyj962wxIK-pVZVn7kKvjpvpn_D1J6KYnWIgiOJu8; Secure; HttpOnly
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '404':
+          description: User not found
+          headers:
+            err:
+              schema:
+                type: string
+                example: User not found
+        '400':
+          description: Bad request
+          headers:
+            err:
+              schema:
+                type: string
+                example: Method not allowed
+
+  /createuser:
+    post:
+      summary: Create a new user
+      description: Creates a new user based on name, email and password. 
+      operationId: createNewUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '200':
+          description: User created successfully
+        '400':
+          description: Bad request
+          headers:
+            err:
+              schema:
+                type: string
+                example: Method not allowed
+
+  /:
+    get:
+      summary: Redirect to elan.org.in
+      responses:
+        '307':
+          description: Temporary redirect
+          headers:
+            Location:
+              schema:
+                type: string
+                example: https://elan.org.in?utm_source=elan_bug
+
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password
+    
+    LoginResponse:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        status:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+
+    CreateUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - name
+        - email
+        - password
