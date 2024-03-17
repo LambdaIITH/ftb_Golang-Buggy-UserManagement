@@ -1,7 +1,7 @@
 <!-- only include .env, go.main, go.mod, swagger.yml -->
 
 # Problem Statement - User Management System
-Sourav was a developer at [Lambda](https://iith.dev) who created new user management system for [Elan](https://elan.org.in), but the system is plagued with lot of bugs in it. As the fest comes nearer you are tasked with fixing the bugs associated with the user management system. The system is crucial for smooth conduction of the fest.
+Max Verstappen was a developer at [Lambda](https://iith.dev) who created new user management system for [Elan](https://elan.org.in), but the system is plagued with lot of bugs in it. As the fest comes nearer you are tasked with fixing the bugs associated with the user management system. The system is crucial for smooth conduction of the fest.
 
 Checkout the [OpenAPI specification](swagger.yml) file and the associated [go code](main.go) to fix the issues. The system should comply with the API specification.
 
